@@ -1,6 +1,7 @@
+<!-- Beboo ja te volim -->
 <template>
   <div id="nav">
-    <router-link :to="{name: 'Home'}">Home</router-link><br>
+    <router-link :to="{name: 'Home'}">Home 1</router-link><br>
     <router-view/>
   </div>
 </template>
