@@ -1,11 +1,9 @@
 <template>
-  <p v-if="error">{{error}} - greska</p>
-
-  <router-link :to="{name:'AddUser' }">Add new user</router-link>
-  <h1>Ovo radi for</h1>
+  <p v-if="error">{{error}} - greska</p> 
+  <ul v-if="users">
+      <short-user-data v-for="user in users" :key="user.id" :user="user" />
+  </ul>
   
-
-  <short-user-data v-if="users.length"   :users="users"/>
   <div v-else>Loading...</div>
 </template>
 
@@ -28,6 +26,12 @@ export default defineComponent({
 });
 </script>
 
-<style>
-
+<style scoped>
+li {
+  margin: 20px;
+  padding: 20px;
+  background-color: lightgrey;
+  color: blue;
+  list-style-type: none;
+}
 </style>

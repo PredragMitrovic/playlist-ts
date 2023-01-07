@@ -1,0 +1,65 @@
+{
+  "users": [
+    {
+      "id": 2,
+      "name": "Predrag",
+      "username": "Peki",
+      "email": "peki@gmail.com",
+      "knownProgramLanguage": [
+        "java",
+        "js",
+        "html"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Jovan",
+      "username": "Joca",
+      "email": "joca@gmail.com",
+      "knownProgramLanguage": [
+        "pajton",
+        "java",
+        "html",
+        "mysql"
+      ]
+    },
+    {
+      "name": "Krcun",
+      "username": "temp",
+      "email": "predrag.mitrovic2@gmail.com",
+      "knownProgramLanguage": [
+        "pekigenije",
+        "dfdf",
+        "proba"
+      ],
+      "id": 4
+    },
+    {
+      "name": "Boca",
+      "username": "Sisko",
+      "email": "predrag.mitrovic2@gmail.com",
+      "knownProgramLanguage": [
+        "btb"
+      ],
+      "id": 5
+    },
+    {
+      "name": "gandi",
+      "username": "sunzinet",
+      "email": "predrag.mitrovic2@gmail.com",
+      "knownProgramLanguage": [
+        "pekigenije"
+      ],
+      "id": 6
+    },
+    {
+      "name": "Predrag",
+      "username": "Peki",
+      "email": "predrag.mitrovic2@gmail.com",
+      "knownProgramLanguage": [
+        "proba"
+      ],
+      "id": 7
+    }
+  ]
+}

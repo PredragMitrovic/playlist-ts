@@ -1,11 +1,13 @@
 <template>
     <div>
         <h1> Add new User</h1>
-        <form @submit.prevent="addNewUser"> 
+        <!-- ovde se sabmituje forma okidanjem funkcije -->
+        <form @submit.prevent="addNewUser">  
             <ul>
                 <li>
                     <label for="name">name</label>
-                    <input type="text" id="name" v-model="name">
+                    <!-- v-modalom vezujemo input polja i datu -->
+                    <input type="text" id="name" v-model="name"> 
                     <p>{{ name }}</p>
                 </li>
                 <li>
@@ -15,12 +17,13 @@
                 </li>
                 <li>
                     <label for="email">email</label>
-                    <input type="text" id="username" v-model="email">
+                    <input type="text" id="email" v-model="email">
                     <p>{{ email }}</p>
                 </li>
                 <li>
                     <label for="tag">tags</label>
-                    <input type="text" id="tag" v-model="tag" @keydown.enter="hendleKeydown">
+                    <!-- hendleKeydown funkcija se okida na eventhendler od tastature i to na enter dugme -->
+                    <input type="text" id="tag" v-model="tag" @keydown.enter.prevent="hendleKeydown">
                     <p>{{ tag }}</p>
                     <p>{{ tags }}</p>
                 </li>
@@ -32,35 +35,40 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router' // ---> pozivaom router objekat da mozemo da radimo sa njim
 
 export default defineComponent({
     setup () {
         const name = ref('')
         const username = ref('')
         const email = ref('')
-        const tags = ref([''])
+        const tags = ref<string[]>([])
         const tag = ref('')
+        const router = useRouter() // ---> ovde definisemo objekat da mozemo ga koristimo (router.go(1) ide na stranicu napred router.go(-1) ide na stranicu nazad)
         const hendleKeydown = () => { 
-            if (!tags.value.includes(tag.value)) {
-                tag.value = tag.value.replace(/\s/g,'')
-                tags.value.push(tag.value)
+            if (!tags.value.includes(tag.value)) {  // ovde proveravamo da li tags vec sadrzi odredjen tag
+                tag.value = tag.value.replace(/\s/g,'') // ovde replacujemo prazne spejsove
+                tags.value.push(tag.value) // ovde punimo tags array
             }
-             tag.value = ''
-        }
-        const addNewUser = async () => {
-            console.log('ovo radi ')
+             tag.value = '' // i onad opet praznimo input poje da se moze dalje kucati
+        } 
+        const addNewUser = async () => { // cim je async funkcija moze da se koristi await 
             const user = {
                 name: name.value,
                 username: username.value,
-                email: email.value
+                email: email.value,
+                knownProgramLanguage: tags.value
             }
-            await fetch('https://jsonplaceholder.typicode.com/users', {
+            tag.value = tag.value.replace(/\s/g, '') // ovde replacujemo prazne spejsove
+            tags.value.push(tag.value) // ovde punimo tags array
+
+            console.log(JSON.stringify(user))
+            await fetch('http://localhost:3000/users', { //kako se koristi post metod
                 method: 'POST',
-                headers: { 'Content-Type': 'aplication/json' },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(user)
             })
-            console.log('ovo radi ')
-
+            router.push({ name: 'Home' })
         }
 
 

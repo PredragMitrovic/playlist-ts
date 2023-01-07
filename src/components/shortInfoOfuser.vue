@@ -1,32 +1,33 @@
+<!-- Komponenta koja rendera sve Usere na home stranici -->
 <template>
-    <ul >
-        <li v-for="user in users" :key="user.id">
-            <router-link :to="{name: 'Detail', params: {id: user.id}}">
-                {{user.name}} <br>
-            </router-link>
-            {{user.id}} <br>
-            {{user.email}} <br>
+<li>
+    <!-- ovde prosledjujemo ruter id propsu kako bi mogao da definise single user ID -->
+    <router-link :to="{ name: 'Detail', params: { id: user.id } }">
+        {{ user.name }} <br>
+    </router-link>
+    {{ user.id }} <br>
+    {{ user.email }} <br>
+    <ul v-if="user.knownProgramLanguage">
+        <li v-for=" tag in user.knownProgramLanguage" :key="tag">
+            <router-link :to="{ name: 'Tags', params: { lang: tag } }"> #{{ tag }} </router-link>
         </li>
     </ul>
+</li>
+
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import userType from '@/types/typeUser'
+import { useRouter } from 'vue-router'
 export default defineComponent({
 props: {
-    users: {
+    user: {
         required: true,
-        type: Array as PropType<userType[]>
+        type: Object as PropType<userType>
     }
 }
 })
 </script>
 <style scoped>
-li {
-    margin: 20px;
-    padding: 20px;
-    background-color: lightgrey;
-    color: blue;
-    list-style-type: none;
-}
+
 </style>

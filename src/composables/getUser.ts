@@ -1,3 +1,4 @@
+// composables funkcija koja dovlaci odgovarajuceg usera za single view komponentu
 import userType from '@/types/typeUser'
 import {ref} from 'vue';
 
@@ -7,7 +8,7 @@ const getUser = (id: number | string) => {
 
     const load = async () => {
       try {
-        const listOfUser = await fetch('https://jsonplaceholder.typicode.com/users/' + id)  
+        const listOfUser = await fetch('http://localhost:3000/users/' + id)  // dodajemo ID kako bi znali koji nam user treba
         if(!listOfUser.ok)  {
           throw Error('no user find')
         }
