@@ -11,7 +11,7 @@
 import { computed, defineComponent } from 'vue'
 import getUsers from '@/composables/getUsers'
 import userType from '@/types/typeUser'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 export default defineComponent({
     setup() { 

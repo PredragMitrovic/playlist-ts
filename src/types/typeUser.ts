@@ -1,6 +1,6 @@
 // intarface od nasih podataka koje smo koristili
 interface userType {
-    id?: any,
+    id?: string,
     name: string,
     username: string,
     email: string,

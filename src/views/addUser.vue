@@ -28,7 +28,7 @@
                     <p>{{ tags }}</p>
                 </li>
             </ul>
-            <button type="submit"> add user</button>
+            <button type="submit" @submit.prevent> add user</button>
         </form>
     </div>
 </template>
@@ -36,6 +36,8 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router' // ---> pozivaom router objekat da mozemo da radimo sa njim
+import { db } from '@/firebase/config'
+import { setDoc, doc, addDoc, collection } from "firebase/firestore"
 
 export default defineComponent({
     setup () {
@@ -53,21 +55,24 @@ export default defineComponent({
              tag.value = '' // i onad opet praznimo input poje da se moze dalje kucati
         } 
         const addNewUser = async () => { // cim je async funkcija moze da se koristi await 
+            tag.value = tag.value.replace(/\s/g, '') // ovde replacujemo prazne spejsove
+            tags.value.push(tag.value) // ovde punimo tags array
             const user = {
                 name: name.value,
                 username: username.value,
                 email: email.value,
                 knownProgramLanguage: tags.value
             }
-            tag.value = tag.value.replace(/\s/g, '') // ovde replacujemo prazne spejsove
-            tags.value.push(tag.value) // ovde punimo tags array
-
             console.log(JSON.stringify(user))
-            await fetch('http://localhost:3000/users', { //kako se koristi post metod
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(user)
-            })
+
+            // await fetch('http://localhost:3000/users', { //kako se koristi post metod
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(user)
+            // })
+            const colRef = collection(db, 'users')
+            const addUser = await addDoc(colRef, user)
+
             router.push({ name: 'Home' })
         }
 
